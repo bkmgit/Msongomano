@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="author" content="page:">
+<title>Algorithms for Automated Computer Vision Object detection and their application to Road Traffic Monitoring</title>
+<style>
+/*	A slide template based on
+	
+	https://www.geeksforgeeks.org/programming-a-slideshow-with-html-and-css/
+	https://stackoverflow.com/questions/13114819/positioning-elements-at-top-right-of-div
+	https://singaporecss.github.io/talk.css/
+	https://ondras.github.io/maslo
+	https://chenhuijing.com/blog/html-slides-without-frameworks/
+
+*/
+
+	body {
+		font-family: intel-one-mono;
+		padding: 5%;
+		text-align: left;
+		font-size: 1.20em;
+	}
+
+	
+	/* Styling the area of the slides */
+
+
+	#content {
+		overflow: hidden;
+		height: 510px;
+		width: 728px;
+		margin: 0 auto;
+	}
+
+	
+	/* Style each of the sides
+	with a fixed width and height */
+
+
+	.sect1 {
+		float: left;
+		height: 510px;
+		width: 728px;
+	}
+
+
+	.sectionbody{
+		float: left;
+		position: relative;
+		height: 510px;
+		width: 700px;
+	}
+
+	.paragraph {
+		width 28px;
+		height: 510px;
+		font-size: medium;
+		position: relative;
+		float: right;
+	}
+
+	ul {
+		list-style-type: square;
+	}
+
+
+</style>
+</head>
+<body class="article">
+<div id="content">
+<div class="sect1">
+<h2 id="0">Algorithms for Automated Computer Vision Object Detection and their application to Road Traffic Monitoring</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="#8">ˇ</a><a href="#1">»</a></p>
+</div>
+<h3 id="_benson_muite" class="discrete">Benson Muite</h3>
+<div class="paragraph">
+<p><br>
+<br>
+<br></p>
+</div>
+<div class="paragraph">
+<p>Typeset by <a href="https://asciidoctor.org">AsciiDoctor</a> using <a href="https://www.intel.com/content/www/us/en/company-overview/one-monospace-font.html">Intel® One Mono Fonts</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://www.gnu.org/licenses/fdl-1.3.en.html#license-text">GFDL</a></p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="1">Outline</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="#0">«</a><a href="#2">»</a></p>
+</div>
+<div class="ulist disc">
+<ul class="disc">
+<li>
+<p>Manual Traffic Monitoring in Kenya Today</p>
+</li>
+<li>
+<p>Computer Vision with Neural Networks</p>
+</li>
+<li>
+<p>Demo</p>
+</li>
+<li>
+<p>Further Work</p>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="2">Manual Traffic Monitoring in Kenya Today</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="#1">«</a><a href="#3">»</a></p>
+</div>
+<div class="ulist disc">
+<ul class="disc">
+<li>
+<p>Pencil and Paper</p>
+</li>
+<li>
+<p>Count vehicles by category</p>
+<div class="ulist disc">
+<ul class="disc">
+<li>
+<p>Motorcycle, tuk-tuk</p>
+</li>
+<li>
+<p>Car, Pickup / van / jeep / SUV</p>
+</li>
+<li>
+<p>Microbus 10-14 seats, Minibus 15-25 seats</p>
+</li>
+<li>
+<p>Bus 26-53 seats, Omnibus 53+ seats</p>
+</li>
+<li>
+<p>Light Truck 2 axles, Medium Truck 2 axles</p>
+</li>
+<li>
+<p>Heavy Truck 3-4 axles, Articulated Truck 5-7 axles</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="3">Manual Traffic Monitoring in Kenya Today</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="#2">«</a><a href="#4">»</a></p>
+</div>
+<div class="ulist disc">
+<ul class="disc">
+<li>
+<p>Expensive, two people needed for a two-way street</p>
+</li>
+<li>
+<p>Can be inaccurate when there is heavy traffic</p>
+</li>
+<li>
+<p>People counting traffic an be easily distracted</p>
+</li>
+<li>
+<p>Pedestrian and bicycle traffic is not included</p>
+</li>
+<li>
+<p><a href="https://www.criticalmassnairobi.org/">At least for bicycles there has been interest in Nairobi</a></p>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="4">Semi-Manual Traffic Monitoring</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="#3">«</a><a href="#5">»</a></p>
+</div>
+<div class="ulist disc">
+<ul class="disc">
+<li>
+<p>Create a <a href="https://github.com/bkmgit/Msongomano">mobile application</a></p>
+</li>
+<li>
+<p>Advantages</p>
+<div class="ulist disc">
+<ul class="disc">
+<li>
+<p>Manual data entry once collection is complete not required</p>
+</li>
+<li>
+<p>Press a button when vehicle goes by</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Drawbacks</p>
+<div class="ulist disc">
+<ul class="disc">
+<li>
+<p>Still need two people</p>
+</li>
+<li>
+<p>May miss vehicles when traffic is heavy</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="5">What is happening elsewhere?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="#4">«</a><a href="#6">»</a></p>
+</div>
+<div class="ulist disc">
+<ul class="disc">
+<li>
+<p><a href="https://www.sytadin.fr/">Paris Region</a></p>
+</li>
+<li>
+<p><a href="https://www.trafficmonitor.ai/">TrafficMonitor (Oregon, USA)</a></p>
+</li>
+<li>
+<p><a href="https://opentrafficcam.org/">OpenTrafficCam (Dresden, Germany)</a></p>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="6">Computer Vision and Neural Networks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="#5">«</a><a href="#7">»</a></p>
+</div>
+<div class="ulist disc">
+<ul class="disc">
+<li>
+<p>Use data to fit a model that will categorize objects in an image</p>
+</li>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/You_Only_Look_Once">You only look once (Yolo)</a></p>
+</li>
+<li>
+<p><a href="https://docs.ultralytics.com/models/yolo26/#performance-metrics">Latest iteration Yolo26</a></p>
+</li>
+<li>
+<p><a href="https://github.com/Tencent/ncnn">NCNN - portable cross platform efficient inference</a></p>
+</li>
+<li>
+<p><a href="https://github.com/skygazer42/yolo26-NCNN">Yolo26 on NCNN</a></p>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="7">Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="#6">«</a><a href="#8">»</a></p>
+</div>
+<div id="img-cars-parking-lot" class="imageblock">
+<div class="content">
+<a class="image" href="https://commons.wikimedia.org/wiki/File:Driving_through_flash_flood.jpg"><img src="Driving_through_flash_flood_processed.jpg" alt="Image of a flooded street with computer vision detected cars and a person" width="600" height="200"></a>
+</div>
+<div class="title">Cars and a person on a flooded road</div>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="8">Further work</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="#7">«</a><a href="#9">»</a></p>
+</div>
+<div class="ulist disc">
+<ul class="disc">
+<li>
+<p>Create traffic counting app that will work on Android and use Yolo model</p>
+</li>
+<li>
+<p>Ideally collect local traffic images to train the model to categorise for local needs</p>
+</li>
+<li>
+<p><a href="https://github.com/ggomes/otm-mpi">Open Traffic Models</a></p>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="9">Acknowledgements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="#8">«</a><a href="#0">^</a></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://nlnet.nl/">NLnet</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-04-28 10:33:01 +0300
+</div>
+</div>
+</body>
+</html>

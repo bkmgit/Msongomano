@@ -1,0 +1,59 @@
+/*	A slide template based on
+	
+	https://www.geeksforgeeks.org/programming-a-slideshow-with-html-and-css/
+	https://stackoverflow.com/questions/13114819/positioning-elements-at-top-right-of-div
+	https://singaporecss.github.io/talk.css/
+	https://ondras.github.io/maslo
+	https://chenhuijing.com/blog/html-slides-without-frameworks/
+
+*/
+
+	body {
+		font-family: intel-one-mono;
+		padding: 5%;
+		text-align: left;
+		font-size: 1.20em;
+	}
+
+	
+	/* Styling the area of the slides */
+
+
+	#content {
+		overflow: hidden;
+		height: 510px;
+		width: 728px;
+		margin: 0 auto;
+	}
+
+	
+	/* Style each of the sides
+	with a fixed width and height */
+
+
+	.sect1 {
+		float: left;
+		height: 510px;
+		width: 728px;
+	}
+
+
+	.sectionbody{
+		float: left;
+		position: relative;
+		height: 510px;
+		width: 700px;
+	}
+
+	.paragraph {
+		width 28px;
+		height: 510px;
+		font-size: medium;
+		position: relative;
+		float: right;
+	}
+
+	ul {
+		list-style-type: square;
+	}
+
